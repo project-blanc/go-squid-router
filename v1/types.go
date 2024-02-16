@@ -16,13 +16,20 @@ const (
 )
 
 type CustomContractCall struct {
-	CallType     CallType
-	Target       string
-	Value        string
-	CallData     string
+	// CallType squid call type
+	CallType CallType
+	// Target is the address of the contract to be called
+	Target string
+	// Value is the amount of native coin, in most scenarios should be "0"
+	Value string
+	// CallData is the contract call encoded call data
+	CallData string
+	// EstimatedGas is the amount of gas of the call
 	EstimatedGas string
 	Payload      struct {
-		TokenAddress  string
+		// TokenAddress is the address of the ERC20 token
+		TokenAddress string
+		// InputPosition is the position of the amount argument in the contract call to set the balance dynamically
 		InputPosition string
 	}
 }
@@ -94,6 +101,7 @@ func (p RouteRequestParameters) ToQuery() url.Values {
 }
 
 type TransactionRequest struct {
+	RouteType            string `json:"routeType"`
 	TargetAddress        string `json:"targetAddress"`
 	Data                 string `json:"data"`
 	Value                string `json:"value"`
