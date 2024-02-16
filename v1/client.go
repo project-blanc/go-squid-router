@@ -24,7 +24,7 @@ func (c *Client) Route(params RouteRequestParameters) (*RouteResponse, error) {
 		return nil, errors.New("slippage must be > 0 and < 99.99")
 	}
 
-	resp, err := c.cli.Get("https://api.0xsquid.com/v1/route?" + params.ToQuery().Encode())
+	resp, err := c.cli.Get("https://api.0xsquid.com/v1/route?" + params.Query().Encode())
 	if err != nil {
 		return nil, err
 	}

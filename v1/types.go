@@ -63,7 +63,7 @@ type RouteRequestParameters struct {
 	ReceiveGasOnDestination bool
 }
 
-func (p RouteRequestParameters) ToQuery() url.Values {
+func (p RouteRequestParameters) Query() url.Values {
 	query := url.Values{}
 	query.Add("fromChain", p.FromChain)
 	query.Add("toChain", p.ToChain)
