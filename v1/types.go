@@ -6,6 +6,66 @@ import (
 	"strconv"
 )
 
+type DexName string
+
+const (
+	AGNI_V3               DexName = "Agni_v3"
+	AERODROME             DexName = "Aerodrome"
+	UNISWAP_V2            DexName = "UniswapV2"
+	UNISWAP_V3            DexName = "UniswapV3"
+	UBESWAP               DexName = "Ubeswap"
+	SPOOKYSWAP            DexName = "Spookyswap"
+	SUSHISWAP             DexName = "Sushiswap"
+	SUSHISWAP_V3          DexName = "SushiswapV3"
+	STELLASWAP            DexName = "Stellaswap"
+	STELLASWAP_V3         DexName = "StellaswapV3"
+	PANGOLIN              DexName = "Pangolin"
+	CURVE_V2              DexName = "Curve_v2"
+	CURVE_V2_POOL         DexName = "Curve_v2_Pool"
+	ELLIPSIS              DexName = "Ellipsis"
+	FUSIONX_V2            DexName = "FusionX_v2"
+	FUSIONX_V3            DexName = "FusionX_v3"
+	KINETIX_V3            DexName = "Kinetix_v3"
+	QUICKSWAP             DexName = "Quickswap"
+	STELLASWAP_SADDLE     DexName = "Stellaswap_Saddle"
+	VELODROME_V2          DexName = "Velodrome_V2"
+	EQUALIZER             DexName = "Equalizer"
+	EQUILIBRE             DexName = "Equilibre"
+	QUICKSWAP_V3          DexName = "Quickswap_v3"
+	PANCAKESWAP           DexName = "Pancakeswap"
+	PANCAKESWAP_V3        DexName = "Pancakeswap_v3"
+	PANCAKESWAP_STABLE    DexName = "Pancakeswap_stable"
+	TRADERJOE             DexName = "TraderJoe"
+	TRIDENT               DexName = "Trident"
+	PLATYPUS              DexName = "Platypus"
+	WOMBAT                DexName = "Wombat"
+	ZYBERSWAP             DexName = "Zyberswap"
+	KYBERSWAP             DexName = "KyberSwap"
+	KYBERSWAP_AGGREGATOR  DexName = "KyberSwap_Aggregator"
+	GMX                   DexName = "GMX"
+	APESWAP               DexName = "Apeswap"
+	OPENOCEAN             DexName = "OpenOcean"
+	OSMOSIS               DexName = "Osmosis"
+	THENA_V3              DexName = "Thena_v3"
+	THENA                 DexName = "Thena"
+	UBESWAP_V3            DexName = "Ubeswap_v3"
+	ZYBERSWAP_V3          DexName = "Zyberswap_v3"
+	BEAMSWAP              DexName = "Beamswap"
+	BEAMSWAP_V2_SADDLE    DexName = "Beamswap_v2_Saddle"
+	SWAPBASED             DexName = "SwapBased"
+	HORIZON_V3            DexName = "Horizon_v3"
+	BASESWAP              DexName = "Baseswap"
+	SYNTHSWAP_V2          DexName = "SynthSwap_v2"
+	SYNTHSWAP_V3          DexName = "SynthSwap_v3"
+	SKYDROME              DexName = "Skydrome"
+	VELOCIMETER           DexName = "Velocimeter"
+	CAMELOT               DexName = "Camelot"
+	THRUSTER_V3           DexName = "Thruster_v3"
+	THRUSTER_V2_1_PERCENT DexName = "Thruster_v2_1_percent"
+	THRUSTER_V2_30_BPS    DexName = "Thruster_v2_30_bps"
+	RAMSES_V3             DexName = "ramses_v3"
+)
+
 type CallType int
 
 const (
@@ -58,7 +118,7 @@ type RouteRequestParameters struct {
 	// CustomContractCalls array of custom contract calls
 	CustomContractCalls []CustomContractCall
 	// Prefer array of supported DEXs for this trade
-	Prefer []string
+	Prefer []DexName
 	// ReceiveGasOnDestination receive gas on destination chain
 	ReceiveGasOnDestination bool
 }
@@ -92,7 +152,7 @@ func (p RouteRequestParameters) Query() url.Values {
 	}
 
 	for i, prefer := range p.Prefer {
-		query.Add(fmt.Sprintf("prefer[%d]", i), prefer)
+		query.Add(fmt.Sprintf("prefer[%d]", i), string(prefer))
 	}
 
 	query.Add("receiveGasOnDestination", strconv.FormatBool(p.ReceiveGasOnDestination))
