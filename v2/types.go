@@ -10,6 +10,11 @@ const (
 	FLEXIBLE
 )
 
+type SlippageConfig struct {
+	Slippage float64      `json:"slippage"`
+	AutoMode SlippageMode `json:"autoMode"`
+}
+
 type RouteRequestParameters struct {
 	// FromChain is the from chain id
 	FromChain string `json:"fromChain"`
@@ -31,10 +36,6 @@ type RouteRequestParameters struct {
 	// Prefer array of supported DEXs for this trade
 	Prefer []v1.DexName `json:"prefer"`
 	// ReceiveGasOnDestination receive gas on destination chain
-	ReceiveGasOnDestination bool `json:"receiveGasOnDestination"`
-
-	SlippageConfig struct {
-		Slippage float64      `json:"slippage"`
-		AutoMode SlippageMode `json:"autoMode"`
-	} `json:"slippageConfig"`
+	ReceiveGasOnDestination bool           `json:"receiveGasOnDestination"`
+	SlippageConfig          SlippageConfig `json:"slippageConfig"`
 }
