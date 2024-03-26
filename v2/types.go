@@ -1,6 +1,10 @@
 package v2
 
-import v1 "github.com/project-blanc/go-squid-router/v1"
+import (
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/common/hexutil"
+	v1 "github.com/project-blanc/go-squid-router/v1"
+)
 
 type SlippageMode int
 
@@ -34,8 +38,35 @@ type RouteRequestParameters struct {
 	QuoteOnly   bool `json:"quoteOnly"`
 	EnableBoost bool `json:"enableBoost"`
 	// Prefer array of supported DEXs for this trade
-	Prefer []v1.DexName `json:"prefer"`
+	Prefer []v1.DexName `json:"prefer,omitempty"`
 	// ReceiveGasOnDestination receive gas on destination chain
 	ReceiveGasOnDestination bool           `json:"receiveGasOnDestination"`
 	SlippageConfig          SlippageConfig `json:"slippageConfig"`
+}
+
+type SquidRouteType string
+
+const (
+	SquidRouteTypeCallBridgeCall SquidRouteType = "CALL_BRIDGE_CALL"
+	SquidRouteTypeCallBridge     SquidRouteType = "CALL_BRIDGE"
+	SquidRouteTypeBridgeCall     SquidRouteType = "BRIDGE_CALL"
+	SquidRouteTypeBridge         SquidRouteType = "BRIDGE"
+	SquidRouteTypeEVMOnly        SquidRouteType = "EVM_ONLY"
+	SquidRouteTypeCosmosOnly     SquidRouteType = "COSMOS_ONLY"
+)
+
+type SquidData struct {
+	Target               common.Address `json:"target"`
+	Data                 hexutil.Bytes  `json:"data"`
+	Value                string         `json:"value"`
+	GasLimit             string         `json:"gasLimit"`
+	GasPrice             string         `json:"gasPrice"`
+	MaxFeePerGas         string         `json:"maxFeePerGas"`
+	MaxPriorityFeePerGas string         `json:"maxPriorityFeePerGas"`
+}
+
+type RouteResponse struct {
+	// @TODO estimate
+	// @TodO params
+	TransactionRequest SquidData `json:"transactionRequest"`
 }

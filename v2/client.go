@@ -3,7 +3,6 @@ package v2
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -23,7 +22,7 @@ func NewClient(integratorID string) *Client {
 }
 
 // Route calls the route endpoint returning route information and the call data object
-func (c *Client) Route(params RouteRequestParameters) (*RouteRequestParameters, error) {
+func (c *Client) Route(params RouteRequestParameters) (*RouteResponse, error) {
 	body, err := json.Marshal(params)
 	if err != nil {
 		return nil, err
@@ -42,29 +41,20 @@ func (c *Client) Route(params RouteRequestParameters) (*RouteRequestParameters, 
 		return nil, err
 	}
 
+	if resp.StatusCode != http.StatusOK {
+		return nil, errors.New("request failed") // @TODO
+	}
+
 	buff, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to read response body")
 	}
 
-	fmt.Println(string(buff))
+	rr := map[string]*RouteResponse{}
+	err = json.Unmarshal(buff, &rr)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to unmarshal response body")
+	}
 
-	return nil, nil
-
-	//if resp.StatusCode != http.StatusOK {
-	//	return nil, errorForResponse(resp.Body)
-	//}
-	//
-	//buff, err := io.ReadAll(resp.Body)
-	//if err != nil {
-	//	return nil, errors.Wrap(err, "failed to read response body")
-	//}
-	//
-	//rr := map[string]*RouteResponse{}
-	//err = json.Unmarshal(buff, &rr)
-	//if err != nil {
-	//	return nil, errors.Wrap(err, "failed to unmarshal response body")
-	//}
-	//
-	//return rr["route"], nil
+	return rr["route"], nil
 }
