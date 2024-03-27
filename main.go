@@ -17,7 +17,7 @@ func main() {
 		ToAddress:   "0x4254EbB758d60e3f15A93D53BDa6a760F0Ae24f9",
 		FromAmount:  "10000000",
 		FromAddress: "0xcc70cbe5e7669E5c72E6C1c7b73a0da0855050AB",
-		Prefer: []squid.DexName{ // @TODO FIX?
+		Prefer: []squid.DexName{
 			squid.PANCAKESWAP,
 			squid.UNISWAP_V2,
 			squid.CURVE_V2,
