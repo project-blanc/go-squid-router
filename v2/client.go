@@ -3,6 +3,7 @@ package v2
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -42,7 +43,8 @@ func (c *Client) Route(params RouteRequestParameters) (*RouteResponse, error) {
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, errors.New("request failed") // @TODO
+		body, _ = io.ReadAll(resp.Body)
+		return nil, fmt.Errorf("request failed body %s", string(body)) // @TODO
 	}
 
 	buff, err := io.ReadAll(resp.Body)
