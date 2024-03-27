@@ -104,6 +104,7 @@ type RouteRequestParameters struct {
 	// ReceiveGasOnDestination receive gas on destination chain
 	ReceiveGasOnDestination bool           `json:"receiveGasOnDestination"`
 	SlippageConfig          SlippageConfig `json:"slippageConfig"`
+	BypassGuardrails        bool           `json:"bypassGuardrails"`
 }
 
 type SquidRouteType string
