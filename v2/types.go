@@ -76,11 +76,6 @@ const (
 	FLEXIBLE
 )
 
-type SlippageConfig struct {
-	Slippage float64      `json:"slippage"`
-	AutoMode SlippageMode `json:"autoMode"`
-}
-
 type RouteRequestParameters struct {
 	// FromChain is the from chain id
 	FromChain string `json:"fromChain"`
@@ -102,9 +97,9 @@ type RouteRequestParameters struct {
 	// Prefer array of supported DEXs for this trade
 	Prefer []DexName `json:"prefer,omitempty"`
 	// ReceiveGasOnDestination receive gas on destination chain
-	ReceiveGasOnDestination bool           `json:"receiveGasOnDestination"`
-	SlippageConfig          SlippageConfig `json:"slippageConfig"`
-	BypassGuardrails        bool           `json:"bypassGuardrails"`
+	ReceiveGasOnDestination bool    `json:"receiveGasOnDestination"`
+	Slippage                float64 `json:"slippage"`
+	BypassGuardrails        bool    `json:"bypassGuardrails"`
 }
 
 type SquidRouteType string
