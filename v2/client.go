@@ -29,7 +29,7 @@ func (c *Client) Route(params RouteRequestParameters) (*RouteResponse, error) {
 		return nil, err
 	}
 
-	req, err := http.NewRequest(http.MethodPost, "https://apiplus.squidrouter.com/route", bytes.NewBuffer(body))
+	req, err := http.NewRequest(http.MethodPost, "https://apiplus.squidrouter.com/v2/route", bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
